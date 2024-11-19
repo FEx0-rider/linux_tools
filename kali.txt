@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Aktualizace repozitářů
-echo "Aktualizuji repozitáře..."
+echo "Updating..."
 sudo apt update
 
 echo
 # Instalace nástrojů
-echo "Instaluji nástroje..."
+echo "Installing..."
 echo
 
 sudo apt install -y aircrack-ng
@@ -30,4 +30,4 @@ sudo apt install -y dirbuster
 
 
 echo
-echo "Všechny nástroje byly úspěšně nainstalovány!"
+echo "Installed"

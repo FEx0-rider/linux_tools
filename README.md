@@ -6,7 +6,7 @@ cd Kali_linux_tools
 
 chmod +x kali.sh 
 
-or sudo apt install dos2unix
+or sudo apt install dos2unix  
 dos2unix kali.sh
 
 

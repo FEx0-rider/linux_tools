@@ -27,6 +27,7 @@ sudo apt install -y wifite
 sudo apt install -y airgeddon
 sudo apt install -y gobuster
 sudo apt install -y dirbuster
+sudo apt install -y exiftool
 
 
 echo

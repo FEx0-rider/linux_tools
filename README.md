@@ -1,1 +1,1 @@
-Tools for my ubuntu 
+Tools for my ubuntu/kali

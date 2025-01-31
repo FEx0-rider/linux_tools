@@ -10,7 +10,7 @@ echo "Installing..."
 echo
 
 sudo apt install -y aircrack-ng
-sudo apt install -y cupp
+git clone https://github.com/t3l3machus/psudohash # Password list generator
 sudo apt install -y sqlmap
 sudo apt install -y nmap
 sudo apt install -y metasploit-framework

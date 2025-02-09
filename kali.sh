@@ -11,6 +11,7 @@ echo
 
 sudo apt install -y aircrack-ng
 git clone https://github.com/t3l3machus/psudohash # Password list generator
+git clone https://github.com/owerdogan/whoami-project  # Web anonimaiser
 sudo apt install -y sqlmap
 sudo apt install -y nmap
 sudo apt install -y metasploit-framework

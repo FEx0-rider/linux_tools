@@ -27,6 +27,14 @@ sudo pacman -S --noconfirm airgeddon
 sudo pacman -S --noconfirm dirbuster
 sudo pacman -S --noconfirm exiftool
 sudo pacman -S --noconfirm git  # Přidáno, pokud nemáte nainstalováno git
+sudo pacman -S --noconfirm burpsiute
+sudo git clone https://aur.archlinux.org/yay.git
+sudo pacman -S --noconfirm fern-wifi-cracker
+sudo pacman -S --noconfirm tcpdump
+sudo pacman -S --noconfirm hashcat
+sudo pacman -S --noconfirm wordlists
+
+
 
 # Instalace nástrojů z AUR (pokud je potřeba, nainstalujte yay nebo jiný AUR helper)
 if ! command -v yay &> /dev/null; then

@@ -1,6 +1,6 @@
 Tools for my ubuntu/kali
 
-git clone https://github.com/FEx0-rider/Kali_linux_tools.git
+git clone https://github.com/FEx0-rider/linux_tools.git
 
 cd Kali_linux_tools
 

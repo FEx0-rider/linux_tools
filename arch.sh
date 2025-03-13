@@ -33,6 +33,8 @@ sudo pacman -S --noconfirm fern-wifi-cracker
 sudo pacman -S --noconfirm tcpdump
 sudo pacman -S --noconfirm hashcat
 sudo pacman -S --noconfirm wordlists
+sudo pacman -S --noconfirm man
+sudo pacman -S --noconfirm neofetch
 
 
 

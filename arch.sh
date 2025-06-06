@@ -1,51 +1,57 @@
 #!/bin/bash
 
-# Aktualizace repozitářů
-echo "Updating..."
-sudo pacman -Syu --noconfirm
+# Balíčky z oficiálních repozitářů
+PACMAN_PACKAGES=(
+  aircrack-ng arp-scan arpwatch atftp axel bettercap binwalk bully cabextract cadaver
+  capstone cherrytree chntpw cifs-utils cilium-cli cosign cowpatty cryptsetup curl
+  curlftpfs darkstat ddrescue dos2unix dsniff eksctl ethtool ettercap exiv2 expect
+  exploitdb ext3grep ext4magic fcrackzip flashrom foremost fping fwbuilder ghidra git
+  glibc gnuradio hackrf hashcat hashcat-utils hashdeep hcxtools hivex httrack hydra
+  i2c-tools impacket inspectrum iodine iw jadx john kismet libewf libnfc libpst lynis
+  macchanger masscan mc mdk4 medusa mfoc minicom mitmproxy multimon-ng nasm nbtscan
+  ncrack net-snmp net-tools netsniff-ng nfs-utils ngrep nikto nmap openocd openssh
+  openvpn p0f p7zip pdfcrack pixiewps plocate proxychains-ng ptunnel python-pip
+  python-virtualenv radare2 rdesktop reaver recordmydesktop rfdump rkhunter ropper
+  samba scapy siege sleuthkit slowhttptest socat spike sqlmap ssdeep sslh sslscan
+  sslsplit swaks syft tcpdump tcpflow tcpreplay testdisk tftp-hpa thc-ipv6 tmux tnftp
+  traceroute trivy unhide util-linux vim vpnc wget wgetpaste whois wifite yara zim zsh
+  zsh-autosuggestions zsh-syntax-highlighting
+)
 
-echo
-# Instalace nástrojů
-echo "Installing..."
-echo
+# Balíčky z AURu
+AUR_PACKAGES=(
+  hyperion ophcrack proxmark3 routersploit rz-ghidra testssl.sh wpscan zaproxy
+)
 
-# Instalace nástrojů z oficiálních repozitářů
-sudo pacman -S --noconfirm aircrack-ng
-sudo pacman -S --noconfirm sqlmap
-sudo pacman -S --noconfirm nmap
-sudo pacman -S --noconfirm metasploit
-sudo pacman -S --noconfirm hydra
-sudo pacman -S --noconfirm john
-sudo pacman -S --noconfirm nikto
-sudo pacman -S --noconfirm wireshark-gtk  # nebo wireshark-qt
-sudo pacman -S --noconfirm burpsuite
-sudo pacman -S --noconfirm ettercap-gtk
-sudo pacman -S --noconfirm gnu-netcat
-sudo pacman -S --noconfirm gobuster
-sudo pacman -S --noconfirm wifite
-sudo pacman -S --noconfirm airgeddon
-sudo pacman -S --noconfirm dirbuster
-sudo pacman -S --noconfirm exiftool
-sudo pacman -S --noconfirm git  # Přidáno, pokud nemáte nainstalováno git
-sudo pacman -S --noconfirm burpsiute
-sudo git clone https://aur.archlinux.org/yay.git
-sudo pacman -S --noconfirm fern-wifi-cracker
-sudo pacman -S --noconfirm tcpdump
-sudo pacman -S --noconfirm hashcat
-sudo pacman -S --noconfirm wordlists
-sudo pacman -S --noconfirm man
-sudo pacman -S --noconfirm neofetch
+# Instaluje balíčky z oficiálních repozitářů
+echo "==> Instalace balíčků z oficiálních repozitářů pomocí pacman..."
+sudo pacman -S --needed "${PACMAN_PACKAGES[@]}"
 
-
-
-# Instalace nástrojů z AUR (pokud je potřeba, nainstalujte yay nebo jiný AUR helper)
-if ! command -v yay &> /dev/null; then
-    echo "yay není nainstalován. Instalace yay..."
-    sudo pacman -S yay --noconfirm
+# Kontrola a instalace yay (AUR helper)
+echo "==> Kontrola přítomnosti yay..."
+if ! command -v yay &>/dev/null; then
+  echo "yay není nainstalován. Instaluji yay z AUR..."
+  git clone https://aur.archlinux.org/yay.git
+  cd yay || exit
+  makepkg -si --noconfirm
+  cd ..
+  rm -rf yay
 fi
 
-yay -S --noconfirm psudohash
-yay -S --noconfirm whoami-project
+# Instalace AUR balíčků
+echo "==> Instalace AUR balíčků pomocí yay..."
+yay -S --needed "${AUR_PACKAGES[@]}"
 
-echo
-echo "Installed"
+# Instalace Sherlock z GitHubu
+echo "==> Instalace Sherlock z GitHubu..."
+if [ ! -d "sherlock" ]; then
+  git clone https://github.com/sherlock-project/sherlock.git
+  cd sherlock || exit
+  sudo python3 -m pip install -r requirements.txt
+  echo "==> Sherlock byl nainstalován do $(pwd)"
+  cd ..
+else
+  echo "==> Adresář 'sherlock' už existuje. Přeskočeno."
+fi
+
+echo "✅ Vše hotovo!"
